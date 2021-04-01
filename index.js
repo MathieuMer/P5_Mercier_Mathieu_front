@@ -25,7 +25,7 @@ function getProductList() {
   });
 }
 
-// Fonction includeContent: Récupère les élements HTML et leur passe le contenu récupéré sur le serveur
+// Fonction productContent: Selectionne les élements HTML et leur passe le contenu récupéré sur le serveur
 function productContent(productList) {
   for (i = 0; i < productList.length; i++) {
 
