@@ -6,8 +6,10 @@ mainProduct()
 
 // Fonction Principale:
 async function mainProduct() {
-    const productId = getProductId()
-    const productObject = await getProductList(productId)
+    const productId = getProductId();
+    console.log("l'ID produit récupéré dans l'URL est le suivant: ",productId);
+    const productObject = await getProductList(productId);
+    console.log("Les informations reçues par le serveur: ",productObject);
     productContent(productObject);
     addToCart(productObject);
 }
@@ -43,7 +45,7 @@ function productContent(productObject) {
     productDescription.innerText = productObject.description;
   
     const productPrice = document.getElementById(`product-price`);
-    productPrice.innerText = `Prix : ${productObject.price / 100}.00 €`;
+    productPrice.innerText = `Prix à l'unité : ${productObject.price / 100}.00 €`;
 
     const productColorList = document.getElementById(`product-color`);
     for (i = 0; i < productObject.colors.length; i++) {
@@ -68,6 +70,7 @@ function addToCart(productObject) {
         productToAddinCart[2] = productObject.price;
         productToAddinCart[3] = parseInt(document.getElementById(`product-quantity`).value, 10);
         productToAddinCart[4] = productObject._id;
+        productToAddinCart[5] = productObject.imageUrl;
         // Vérifier si le panier existe dans localstorage :
         // si NON : créér la variable panier (cart), ajouter le produit, et sauvegarder avec localstorage
         // si OUI : Rechercher si un article identique est déjà dans le panier :
@@ -80,7 +83,6 @@ function addToCart(productObject) {
             let tabLocalStorage = JSON.parse(localStorage.getItem("shopCart"));
             condition: {
                 for (i = 0; i < tabLocalStorage.length; i++) {
-                    console.log(i,tabLocalStorage.length)
                     if ((tabLocalStorage[i][0] == productToAddinCart[0]) && (tabLocalStorage[i][1] == productToAddinCart[1])) {
                         tabLocalStorage[i][3] = tabLocalStorage[i][3] + productToAddinCart[3];
                         localStorage.setItem('shopCart',JSON.stringify(tabLocalStorage));

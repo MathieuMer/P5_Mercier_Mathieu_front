@@ -7,7 +7,7 @@ main()
 // Fonction Principale:
 async function main() {
   const productList = await getProductList()
-  console.log(productList);
+  console.log("Elements reçus du server grâce à la requête fetch ",productList);
   productContent(productList);
 }
 

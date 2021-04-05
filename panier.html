@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Orinoco - Personalisez votre peluche</title>
+    <title>Orinoco - Panier</title>
 </head>
 <body>
 
@@ -22,7 +23,7 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div id="navbarContent" class="collapse navbar-collapse navbar-light">
+                        <div id="navbarContent" class="collapse navbar-collapse navbar-light justify-content-end">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="index.html">Accueil</a>
@@ -39,48 +40,96 @@
     </div>
 
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <table class="table">
-                    <thead>
+        <div class="row justify-content-center m-4">
+            <div class="col-auto">
+                <table class="table text-center">
+                    <thead class="thead-light">
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Photo du produit</th>
+                        <th scope="col"></th>
+                        <th scope="col">Photo</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Couleur</th>
-                        <th scope="col">quantité</th>
-                        <th scope="col">Prix unitaire</th>
-                        <th scope="col">Prix total</th>
-                        <th scope="col">Sup</th>
+                        <th scope="col">-</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">+</th>
+                        <th scope="col">Prix Unitaire</th>
+                        <th scope="col">Prix Total</th>
+                        <th scope="col">Supprimer</th>
                       </tr>
                     </thead>
                     <tbody id="tableau-body">
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                     
                     </tbody>
-                  </table>
+                    <thead class="thead-light">
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col">Prix Total :</th>
+                          <th scope="col" id="prix-total-panier"></th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                </table>
             </div>
         </div>
+
+        <form class="was-validated border border-primary p-4 m-4">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNom">Nom</label>
+                    <input type="text" class="form-control" id="inputNom" placeholder="Nom" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPrenom">Prénom</label>
+                    <input type="text" class="form-control" id="inputPrenom" placeholder="Prénom" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="exemple@gmail.com" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputTel">Telephone</label>
+                    <input type="text" class="form-control" id="inputTel">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Adresse</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="N° et voie" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Complément d'adresse</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Appartement, étage...">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="inputCP">Code Postal</label>
+                    <input type="text" class="form-control" id="inputCP">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Ville</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputPays">Pays</label>
+                    <input type="text" class="form-control" id="inputPays">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                    <label class="form-check-label" for="gridCheck">J'ai lu et j'accepte les CGU d'Orinoco</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" >Procéder au paiement</button>
+        </form>
     </div>
-
-
-
     
     <div class="bg-light mt-4">
         <div class="container pt-3">
