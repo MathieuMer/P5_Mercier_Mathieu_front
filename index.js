@@ -1,6 +1,6 @@
 // Déclaration des variables
-const serverUrl = "http://localhost:3000/api/teddies";
-
+//const serverUrl = "http://localhost:3000/api/teddies";
+const serverUrl = "https://ab-p5-api.herokuapp.com/api/teddies";
 // Appel fonction principale
 main()
 

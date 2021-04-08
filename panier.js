@@ -1,5 +1,18 @@
+const serverUrl = "https://ab-p5-api.herokuapp.com/api/teddies";
+
 // Récupération du contenu du panier dans le localstorage
 let tabLocalStorage = JSON.parse(localStorage.getItem("shopCart"));
+console.log(tabLocalStorage);
+
+// Si panier vide : cacher le tableau, afficher message panier vide, désactiver bouton submit
+if ((tabLocalStorage === null) || (tabLocalStorage.length === 0)) {
+    document.getElementById(`tableau-panier`).classList.add("d-none");
+    document.getElementById(`submit-form`).setAttribute("disabled", "");
+    const messagePanierVide = document.createElement("p");
+    messagePanierVide.classList.add("text-center", "font-weight-bold");
+    messagePanierVide.innerHTML = 'Votre panier est vide :(';
+    document.getElementById(`div-panier`).appendChild(messagePanierVide);
+}
 
 // Créer le tableau panier récapitulatif du panier
 const tableauBody = document.getElementById(`tableau-body`);
@@ -42,7 +55,7 @@ for (i = 0; i < tabLocalStorage.length; i++) {
     prixT.textContent = `${(tabLocalStorage[i][2] / 100) * tabLocalStorage[i][3]}.00 €`;
 }
 
-// Calcul et affichage du prix Total à payer
+// Fonction calcul et affichage du prix Total à payer
 const prixTotalPanier = document.getElementById(`prix-total-panier`);
 function calcPrixTotal (tabLocalStorage) {
     var prixTotalPanier = 0;
@@ -50,12 +63,11 @@ function calcPrixTotal (tabLocalStorage) {
         prixTotalPanier = prixTotalPanier + (tabLocalStorage[i][3] * tabLocalStorage[i][2]);
     }
     prixTotalPanier = prixTotalPanier / 100;
-    console.log(prixTotalPanier);
     return prixTotalPanier;
 }
 prixTotalPanier.textContent = `${calcPrixTotal(tabLocalStorage)}.00 €`;
 
-// Fonction quantité +1 et -1 d'un article via les boutons + et -
+// Fonction quantité +1
 var addOne = function() {
     var lastChar = this.id.substr(this.id.length - 1);
     tabLocalStorage[lastChar][3] = tabLocalStorage[lastChar][3] + 1;
@@ -67,7 +79,6 @@ var addOne = function() {
 var delOne = function(){
     var lastChar = this.id.substr(this.id.length - 1);
     tabLocalStorage[lastChar][3] = tabLocalStorage[lastChar][3] - 1;
-    console.log('le tab',tabLocalStorage[lastChar][3]);
     // if quantity = 0
     if (tabLocalStorage[lastChar][3] === 0) {
         var userConfirm = confirm(`Vous êtes sur le point de supprimer ${tabLocalStorage[lastChar][0]} de votre panier :( \nConfirmer ?`);
@@ -106,7 +117,57 @@ for (i = 0; i < tabLocalStorage.length; i++) {
     document.getElementById(`supp${[i]}`).onclick = supCart;
 }
 
+// Fonction ajout de couleurs sur le formulaire, déclenchée au clic du submit
+const formClient = document.getElementById(`formulaire`);
+document.getElementById(`submit-form`).onclick = (event) => {
+    formClient.classList.add("was-validated");
+};
 
-
-
-
+// Fonction principale commande finale, déclenchée au clic du submit
+formClient.addEventListener('submit', function(event) {
+    event.preventDefault();
+    //Créer le tableau final des produits
+    const panierFinalOrder = []
+    createFinalOrder(panierFinalOrder);
+    //Créer l'objet contact
+    const nom = document.getElementById('inputNom').value;
+    const prenom = document.getElementById('inputPrenom').value;
+    const adresse = document.getElementById('inputAddress').value;
+    //const adresse2 = document.getElementById('inputAddress2').value;      not used
+    //const codePostal = document.getElementById('inputCP').value;          not used
+    const ville = document.getElementById('inputCity').value;
+    //const telNumber = document.getElementById('inputTel').value;          not used
+    const emailAddress = document.getElementById('inputEmail').value;
+    const order = {
+        contact: {
+            firstName: nom,
+            lastName: prenom,
+            address: adresse,
+            city: ville,
+            email: emailAddress},
+        products: panierFinalOrder
+    };
+    sendOrder(order);
+    window.location.href = (`${window.location.origin}/confirm.html`);
+});
+// Fonction creation du tableau d'ID pour envoi au serveur
+function createFinalOrder(panierFinalOrder) {
+    tabLocalStorage.forEach(element => {
+        for (q = 0; q < element[3]; q++){
+            const eachProduct = element[4];
+            panierFinalOrder.push(eachProduct);
+        };
+    });
+};
+// Fonction envoi de la commande, reception et stockage de l'ID de la commande généré par le serveur
+async function sendOrder(order) {
+    const options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json; charset=utf-8'},
+        body: JSON.stringify(order)
+    };
+    const response = await fetch(`${serverUrl}/order`, options);
+    const serverResponse = await response.json();
+    console.log(serverResponse);
+    localStorage.setItem('order',JSON.stringify(serverResponse));
+};
