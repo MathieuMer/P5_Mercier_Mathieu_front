@@ -2,11 +2,13 @@ const serverUrl = "https://ab-p5-api.herokuapp.com/api/teddies";
 
 // Récupération du contenu du panier dans le localstorage
 let tabLocalStorage = JSON.parse(localStorage.getItem("shopCart"));
-console.log(tabLocalStorage);
+console.log("Contenu de tabLocalStorage :",tabLocalStorage);
 
 // Si panier vide : cacher le tableau, afficher message panier vide, désactiver bouton submit
 if ((tabLocalStorage === null) || (tabLocalStorage.length === 0)) {
     document.getElementById(`tableau-panier`).classList.add("d-none");
+    document.getElementById(`montant-panier`).classList.add("d-none");
+    document.getElementById(`tableau-panier`).classList.remove("d-block");
     document.getElementById(`submit-form`).setAttribute("disabled", "");
     const messagePanierVide = document.createElement("p");
     messagePanierVide.classList.add("text-center", "font-weight-bold");
@@ -20,14 +22,13 @@ for (i = 0; i < tabLocalStorage.length; i++) {
     const line = document.createElement("tr");
     line.id = `ligne${[i]}`;
     line.innerHTML = 
-    `<th scope="row" id='num${[i]}' class="align-middle">${i + 1}</th>
-    <td id='imageth${[i]}'><img id='image${[i]}' class="img-thumbnail img-fluid" width="150px" src="" alt="peluche"></td>
+    `<td id='imageth${[i]}'><img id='image${[i]}' class="rounded-lg" width="100px" src="" alt="peluche"></td>
     <td id='name${[i]}' class="align-middle"></td>
     <td id='color${[i]}' class="align-middle"></td>
     <td class="align-middle"><button type="button" id='quantity_moins_${[i]}' class="btn btn-primary"><i class="fa fa-minus"></i></button></td>
     <td id='quantity${[i]}' class="align-middle"></td>
     <td class="align-middle"><button type="button" id='quantity_plus_${[i]}' class="btn btn-primary"><i class="fa fa-plus"></i></button></td>
-    <td id='prixU${[i]}' class="align-middle"></td>
+    <td id='prixU${[i]}' class="align-middle d-none"></td>
     <td id='prixT${[i]}' class="align-middle"></td>
     <td class="align-middle"><button type="button" id='supp${[i]}' class="btn btn-primary"><i class="fa fa-trash"></i></button></td>`;
     tableauBody.appendChild(line);
@@ -148,7 +149,6 @@ formClient.addEventListener('submit', function(event) {
         products: panierFinalOrder
     };
     sendOrder(order);
-    window.location.href = (`${window.location.origin}/confirm.html`);
 });
 // Fonction creation du tableau d'ID pour envoi au serveur
 function createFinalOrder(panierFinalOrder) {
@@ -170,4 +170,5 @@ async function sendOrder(order) {
     const serverResponse = await response.json();
     console.log(serverResponse);
     localStorage.setItem('order',JSON.stringify(serverResponse));
+    window.location.href = (`${window.location.origin}/confirm.html`);
 };
