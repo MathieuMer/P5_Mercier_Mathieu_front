@@ -96,6 +96,6 @@ function addToCart(productObject) {
         redirectToCartPage ();              
     }
     function redirectToCartPage () {
-        window.location.href = (`${window.location.origin}/panier.html`);
+        window.location.href = (`${window.location.origin}/P5_Mercier_Mathieu_front/panier.html`);
     }
 }

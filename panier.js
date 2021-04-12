@@ -168,5 +168,5 @@ async function sendOrder(order) {
     const serverResponse = await response.json();
     console.log(serverResponse);
     localStorage.setItem('order',JSON.stringify(serverResponse));
-    window.location.href = (`${window.location.origin}/confirm.html`);
+    window.location.href = (`${window.location.origin}/P5_Mercier_Mathieu_front/confirm.html`);
 };
