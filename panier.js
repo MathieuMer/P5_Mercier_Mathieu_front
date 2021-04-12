@@ -22,15 +22,15 @@ for (i = 0; i < tabLocalStorage.length; i++) {
     const line = document.createElement("tr");
     line.id = `ligne${[i]}`;
     line.innerHTML = 
-    `<td id='imageth${[i]}'><img id='image${[i]}' class="rounded-lg" width="100px" src="" alt="peluche"></td>
+    `<td id='imageth${[i]}' class="d-none d-md-block"><img id='image${[i]}' class="rounded-lg" width="100px" src="" alt="peluche"></td>
     <td id='name${[i]}' class="align-middle"></td>
     <td id='color${[i]}' class="align-middle"></td>
-    <td class="align-middle"><button type="button" id='quantity_moins_${[i]}' class="btn btn-primary"><i class="fa fa-minus"></i></button></td>
-    <td id='quantity${[i]}' class="align-middle"></td>
-    <td class="align-middle"><button type="button" id='quantity_plus_${[i]}' class="btn btn-primary"><i class="fa fa-plus"></i></button></td>
+    <td class="align-middle px-0"><button type="button" id='quantity_moins_${[i]}' class="btn btn-primary btn-sm"><i class="fa fa-minus"></i></button></td>
+    <td id='quantity${[i]}' class="align-middle px-0"></td>
+    <td class="align-middle px-0"><button type="button" id='quantity_plus_${[i]}' class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></button></td>
     <td id='prixU${[i]}' class="align-middle d-none"></td>
     <td id='prixT${[i]}' class="align-middle"></td>
-    <td class="align-middle"><button type="button" id='supp${[i]}' class="btn btn-primary"><i class="fa fa-trash"></i></button></td>`;
+    <td class="align-middle"><button type="button" id='supp${[i]}' class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></button></td>`;
     tableauBody.appendChild(line);
 }
 
@@ -53,7 +53,7 @@ for (i = 0; i < tabLocalStorage.length; i++) {
     prixU.textContent = `${tabLocalStorage[i][2] / 100}.00 €`;
     // prix total par articles
     const prixT = document.getElementById(`prixT${[i]}`);
-    prixT.textContent = `${(tabLocalStorage[i][2] / 100) * tabLocalStorage[i][3]}.00 €`;
+    prixT.textContent = `${(tabLocalStorage[i][2] / 100) * tabLocalStorage[i][3]}€`;
 }
 
 // Fonction calcul et affichage du prix Total à payer
