@@ -84,7 +84,6 @@ var delOne = function(){
     if (tabLocalStorage[lastChar][3] === 0) {
         var userConfirm = confirm(`Vous êtes sur le point de supprimer ${tabLocalStorage[lastChar][0]} de votre panier :( \nConfirmer ?`);
         if (userConfirm == true) {
-            alert`Votre article a été retiré du panier`;
             tabLocalStorage.splice(lastChar,1);
             localStorage.setItem('shopCart',JSON.stringify(tabLocalStorage));
             document.location.reload();
@@ -102,7 +101,6 @@ var supCart = function(){
     var lastChar = this.id.substr(this.id.length - 1);
     var userConfirm = confirm(`Vous êtes sur le point de supprimer ces articles de votre panier :( \nConfirmer ?`);
     if (userConfirm == true) {
-        alert`Vos articles ont étés retirés du panier`;
         tabLocalStorage.splice(lastChar,1);
         localStorage.setItem('shopCart',JSON.stringify(tabLocalStorage));
         document.location.reload();
